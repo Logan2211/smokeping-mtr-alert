@@ -116,6 +116,7 @@ if __name__ == "__main__":
     parser.add_argument('loss_pattern', help='loss pattern that has triggered, supplied by smokeping')
     parser.add_argument('rtt', help='current RTT for target, supplied by smokeping')
     parser.add_argument('hostname', help='hostname of target, supplied by smokeping')
+    parser.add_argument('edgetrigger', help='edgetrigger status, supplied by smokeping', default=1, type=int, nargs='?')
     parser.add_argument('--notify', default='email', help='method to notify (slack or email)')
     parser.add_argument('--email', default='root', help='e-mail address to send report, defaults to root')
     parser.add_argument('--slack-token', default=None, help='Slack token to use for webhook')
@@ -124,6 +125,9 @@ if __name__ == "__main__":
     parser.add_argument('--force', dest='force', action='store_true', help='force send the notification even if smokeping reports the edgetrigger was not raised')
     parser.set_defaults(force=False)
     args = parser.parse_args()
+
+    if not args.force and args.edgetrigger != 1:
+        sys.exit(2)
 
     if args.notify == 'email':
         send_email(args)
