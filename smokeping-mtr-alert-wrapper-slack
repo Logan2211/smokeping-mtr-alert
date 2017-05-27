@@ -1,0 +1,4 @@
+#!/bin/sh
+PATH="./:$PATH"
+
+smokeping-mtr-alert --notify=slack --slack-token=<token> --slack-channel '#test' "$@"
