@@ -32,7 +32,7 @@ from slacker import Slacker
 
 
 def collect_mtr(hostname, count=5):
-    mtr_command = "mtr -i0.5 --show-ips -w -c %s %s" % (count, pipes.quote(hostname))
+    mtr_command = "mtr --show-ips -w -c %s %s" % (count, pipes.quote(hostname))
     try:
         mtr_output = subprocess.check_output(mtr_command.split()).strip()
         return {'cmd': mtr_command, 'output': mtr_output}
